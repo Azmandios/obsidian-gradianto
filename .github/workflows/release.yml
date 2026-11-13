@@ -1,0 +1,90 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to release (e.g. v0.1.0)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify tag matches manifest version
+        run: |
+          set -euo pipefail
+          version="$(node -p "require('./manifest.json').version")"
+          if [ "$TAG" != "v$version" ]; then
+            echo "::error::Tag $TAG does not match manifest.json version $version"
+            exit 1
+          fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+          echo "Releasing Gradianto Nature Green $version ($TAG)"
+
+      - name: Rebuild and validate theme
+        run: |
+          set -euo pipefail
+          node scripts/build.js
+          node scripts/validate.js
+          node scripts/preview.js
+          if ! git diff --exit-code -- theme.css manifest.json preview.html; then
+            echo "::error::Generated files are out of date. Run the scripts locally and commit the result."
+            exit 1
+          fi
+
+      - name: Package Obsidian theme
+        run: |
+          set -euo pipefail
+          mkdir -p "dist/Gradianto Nature Green"
+          cp theme.css manifest.json "dist/Gradianto Nature Green/"
+          cp README.md LICENSE CHANGELOG.md preview.png dist/
+          (
+            cd dist
+            zip -r "gradianto-v${VERSION}.zip" \
+              "Gradianto Nature Green" \
+              README.md \
+              LICENSE \
+              CHANGELOG.md \
+              preview.png
+          )
+          unzip -l "dist/gradianto-v${VERSION}.zip"
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists, updating asset"
+            gh release upload "$TAG" "dist/gradianto-v${VERSION}.zip" --clobber
+          else
+            gh release create "$TAG" "dist/gradianto-v${VERSION}.zip" \
+              --title "Gradianto Nature Green ${VERSION}" \
+              --generate-notes \
+              --verify-tag
+          fi

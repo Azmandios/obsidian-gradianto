@@ -1,0 +1,19 @@
+# Changelog
+
+Все заметные изменения темы документируются в этом файле.
+Формат основан на [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
+версии следуют [Semantic Versioning](https://semver.org/lang/ru/).
+
+## [0.1.0] — 2026-11-13
+
+### Добавлено
+
+- Первый порт Gradianto для Obsidian — вариант **Nature Green**.
+- Палитра и синтаксис собраны из оригинальной JetBrains-схемы
+  (`Gradianto_Nature_Green_new.xml` + legacy-схема), а не подобраны вручную.
+- Оформлены редактор, сайдбар, вкладки, статус-бар, меню, настройки,
+  properties, callout-ы, таблицы, теги, чек-листы, граф и Canvas.
+- Подсветка Markdown и кода в live preview и reading view.
+- `scripts/build.js`, `scripts/validate.js`, `scripts/preview.js`
+  и `install.ps1` для сборки, проверки, предпросмотра и установки.
+- GitHub Actions: проверка на push/PR и автоматический release по тегу.

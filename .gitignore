@@ -1,0 +1,14 @@
+# Dependencies and build artifacts
+node_modules/
+dist/
+*.log
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Local Obsidian vaults, if someone opens one inside the repo
+.obsidian/

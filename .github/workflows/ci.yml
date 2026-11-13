@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Build and validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Rebuild theme
+        run: |
+          set -euo pipefail
+          node scripts/build.js
+          node scripts/validate.js
+          node scripts/preview.js
+
+      - name: Check generated files are committed
+        run: |
+          set -euo pipefail
+          if ! git diff --exit-code -- theme.css manifest.json preview.html; then
+            echo "::error::Generated files are out of date. Run 'node scripts/build.js && node scripts/preview.js' locally and commit the result."
+            exit 1
+          fi
