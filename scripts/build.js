@@ -17,7 +17,7 @@ const THEME_JSON = "Gradianto_Nature_Green_new.theme.json";
 const SCHEME = "Gradianto_Nature_Green_new.xml";
 const LEGACY_SCHEME = "Gradianto_Nature_Green.xml";
 const NAME = "Gradianto Nature Green";
-const VERSION = "0.1.3";
+const VERSION = "0.1.4";
 
 /* ------------------------------------------------------------------ */
 /* color helpers                                                       */
@@ -1241,6 +1241,14 @@ input[type="checkbox"]:checked {
 .markdown-rendered h5,
 .markdown-rendered h6 {
   line-height: 1.3;
+}
+
+/* Obsidian positions the heading fold arrow at the start of the heading text.
+   Obsidian Toolkit adds a left border/padding to h2/h3, and the arrow lands on
+   top of it. Keep those arrows in the left margin instead. */
+.markdown-rendered h2 > .heading-collapse-indicator,
+.markdown-rendered h3 > .heading-collapse-indicator {
+  margin-inline-start: -40px;
 }
 
 .markdown-rendered a.internal-link,

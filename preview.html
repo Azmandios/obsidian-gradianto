@@ -975,6 +975,14 @@ input[type="checkbox"]:checked {
   line-height: 1.3;
 }
 
+/* Obsidian positions the heading fold arrow at the start of the heading text.
+   Obsidian Toolkit adds a left border/padding to h2/h3, and the arrow lands on
+   top of it. Keep those arrows in the left margin instead. */
+.markdown-rendered h2 > .heading-collapse-indicator,
+.markdown-rendered h3 > .heading-collapse-indicator {
+  margin-inline-start: -40px;
+}
+
 .markdown-rendered a.internal-link,
 .markdown-rendered a.external-link {
   text-decoration: none;
@@ -1552,7 +1560,7 @@ hr { border: none; border-top: 1px solid var(--hr-color); margin: 22px 0; }
       </div>
       <div class="status">
         <span>⎇ main · 3 changes</span>
-        <span>Gradianto Nature Green v0.1.3 · Reading view</span>
+        <span>Gradianto Nature Green v0.1.4 · Reading view</span>
       </div>
     </main>
   </div>
