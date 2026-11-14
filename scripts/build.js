@@ -17,7 +17,7 @@ const THEME_JSON = "Gradianto_Nature_Green_new.theme.json";
 const SCHEME = "Gradianto_Nature_Green_new.xml";
 const LEGACY_SCHEME = "Gradianto_Nature_Green.xml";
 const NAME = "Gradianto Nature Green";
-const VERSION = "0.1.0";
+const VERSION = "0.1.1";
 
 /* ------------------------------------------------------------------ */
 /* color helpers                                                       */
@@ -417,16 +417,19 @@ body.theme-light {
   --ribbon-background-collapsed: ${p.tabsBg};
   --ribbon-border-color: ${p.border};
 
-  --tab-container-background: ${p.tabStrip};
+  --tab-container-background: ${darken(p.tabsBg, 0.16)};
   --tab-background-active: ${p.tabActive};
-  --tab-text-color: ${p.muted};
-  --tab-text-color-active: ${p.selectionFg};
-  --tab-text-color-focused: ${p.muted};
-  --tab-text-color-focused-active: ${p.selectionFg};
-  --tab-text-color-focused-active-current: ${p.selectionFg};
+  --tab-background-hover: ${mix(p.tabsBg, p.accent, 0.14)};
+  --tab-text-color: ${p.uiFg};
+  --tab-text-color-active: #f1f4f6;
+  --tab-text-color-focused: ${p.uiFg};
+  --tab-text-color-focused-active: #f1f4f6;
+  --tab-text-color-focused-active-current: #ffffff;
   --tab-text-color-focused-highlighted: ${p.accent};
-  --tab-outline-color: ${p.border};
-  --tab-divider-color: ${p.borderSoft};
+  --tab-outline-color: ${mix(p.borderSoft, p.accent, 0.22)};
+  --tab-outline-width: 1px;
+  --tab-divider-color: ${mix(p.tabsBg, p.accent, 0.34)};
+  --tab-inner-background-hover: ${rgba(p.accent, 0.14)};
   --tab-radius: 4px 4px 0 0;
   --tab-radius-active: 4px 4px 0 0;
 
@@ -438,7 +441,7 @@ body.theme-light {
   --file-header-background-focused: ${p.panelBg};
   --file-header-border: 1px solid ${p.border};
 
-  --divider-color: ${p.border};
+  --divider-color: ${p.hr};
   --divider-color-hover: ${p.accent};
   --prompt-border-color: ${p.borderSoft};
 
@@ -656,20 +659,35 @@ body {
   border-bottom: 1px solid var(--background-modifier-border);
 }
 
-.workspace-tab-header {
+.workspace-tab-header-container .workspace-tab-header {
+  color: var(--tab-text-color);
+}
+
+.workspace-tab-header-container .workspace-tab-header:not(.is-active) {
+  background-color: var(--g-bg-tabs);
+}
+
+.workspace-tab-header-container .workspace-tab-header:not(.is-active) .workspace-tab-header-inner-icon {
+  color: ${mix(p.uiFg, p.tabsBg, 0.18)};
+  opacity: 0.95;
+}
+
+.workspace-tab-header-container .workspace-tab-header:not(.is-active) .workspace-tab-header-inner-title {
   color: var(--tab-text-color);
 }
 
 .workspace-tab-header:hover {
-  background-color: ${p.hover};
+  background-color: var(--tab-background-hover);
 }
 
-.workspace-tab-header.is-active {
+.workspace-tab-header-container .workspace-tab-header.is-active {
   background-color: var(--tab-background-active);
   color: var(--tab-text-color-active);
+  box-shadow: 0 0 0 1px var(--tab-outline-color), inset 0 -2px 0 ${p.accent};
 }
 
-.workspace-tab-header.is-active .workspace-tab-header-inner-title {
+.workspace-tab-header-container .workspace-tab-header.is-active .workspace-tab-header-inner-icon,
+.workspace-tab-header-container .workspace-tab-header.is-active .workspace-tab-header-inner-title {
   color: var(--tab-text-color-active);
 }
 

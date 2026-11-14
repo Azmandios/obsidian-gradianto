@@ -143,16 +143,19 @@ body.theme-light {
   --ribbon-background-collapsed: #1E3B39;
   --ribbon-border-color: #0A373B;
 
-  --tab-container-background: #1c3634;
+  --tab-container-background: #193230;
   --tab-background-active: #006448;
-  --tab-text-color: #99a1af;
-  --tab-text-color-active: #F1F4F6;
-  --tab-text-color-focused: #99a1af;
-  --tab-text-color-focused-active: #F1F4F6;
-  --tab-text-color-focused-active-current: #F1F4F6;
+  --tab-background-hover: #275045;
+  --tab-text-color: #CCCECE;
+  --tab-text-color-active: #f1f4f6;
+  --tab-text-color-focused: #CCCECE;
+  --tab-text-color-focused-active: #f1f4f6;
+  --tab-text-color-focused-active-current: #ffffff;
   --tab-text-color-focused-highlighted: #60cf92;
-  --tab-outline-color: #0A373B;
-  --tab-divider-color: #325C4AA3;
+  --tab-outline-color: #3c755a;
+  --tab-outline-width: 1px;
+  --tab-divider-color: #346d57;
+  --tab-inner-background-hover: rgba(96, 207, 146, 0.14);
   --tab-radius: 4px 4px 0 0;
   --tab-radius-active: 4px 4px 0 0;
 
@@ -164,7 +167,7 @@ body.theme-light {
   --file-header-background-focused: #20403F;
   --file-header-border: 1px solid #0A373B;
 
-  --divider-color: #0A373B;
+  --divider-color: #20574F;
   --divider-color-hover: #60cf92;
   --prompt-border-color: #325C4AA3;
 
@@ -382,20 +385,35 @@ body {
   border-bottom: 1px solid var(--background-modifier-border);
 }
 
-.workspace-tab-header {
+.workspace-tab-header-container .workspace-tab-header {
+  color: var(--tab-text-color);
+}
+
+.workspace-tab-header-container .workspace-tab-header:not(.is-active) {
+  background-color: var(--g-bg-tabs);
+}
+
+.workspace-tab-header-container .workspace-tab-header:not(.is-active) .workspace-tab-header-inner-icon {
+  color: #adb4b3;
+  opacity: 0.95;
+}
+
+.workspace-tab-header-container .workspace-tab-header:not(.is-active) .workspace-tab-header-inner-title {
   color: var(--tab-text-color);
 }
 
 .workspace-tab-header:hover {
-  background-color: rgba(70, 143, 103, 0.35);
+  background-color: var(--tab-background-hover);
 }
 
-.workspace-tab-header.is-active {
+.workspace-tab-header-container .workspace-tab-header.is-active {
   background-color: var(--tab-background-active);
   color: var(--tab-text-color-active);
+  box-shadow: 0 0 0 1px var(--tab-outline-color), inset 0 -2px 0 #60cf92;
 }
 
-.workspace-tab-header.is-active .workspace-tab-header-inner-title {
+.workspace-tab-header-container .workspace-tab-header.is-active .workspace-tab-header-inner-icon,
+.workspace-tab-header-container .workspace-tab-header.is-active .workspace-tab-header-inner-title {
   color: var(--tab-text-color-active);
 }
 

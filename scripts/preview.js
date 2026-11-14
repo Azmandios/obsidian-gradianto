@@ -102,10 +102,16 @@ body {
 .tab {
   padding: 9px 18px;
   color: var(--tab-text-color);
+  background: var(--g-bg-tabs);
   font-size: 12px;
-  border-right: 1px solid var(--background-modifier-border);
+  border-right: 1px solid var(--tab-divider-color);
 }
-.tab.active { background: var(--tab-background-active); color: var(--tab-text-color-active); }
+.tab.active {
+  background: var(--tab-background-active);
+  color: var(--tab-text-color-active);
+  border-right-color: transparent;
+  box-shadow: inset 0 -2px 0 var(--g-accent);
+}
 .tab .x { color: var(--text-faint); margin-left: 8px; }
 .view-header {
   display: flex;
