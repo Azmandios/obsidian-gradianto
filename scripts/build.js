@@ -17,7 +17,7 @@ const THEME_JSON = "Gradianto_Nature_Green_new.theme.json";
 const SCHEME = "Gradianto_Nature_Green_new.xml";
 const LEGACY_SCHEME = "Gradianto_Nature_Green.xml";
 const NAME = "Gradianto Nature Green";
-const VERSION = "0.1.2";
+const VERSION = "0.1.3";
 
 /* ------------------------------------------------------------------ */
 /* color helpers                                                       */
@@ -1367,7 +1367,9 @@ input[type="checkbox"]:checked {
   background-color: ${rgba(p.panelBg, 0.22)};
   border: 1px solid var(--background-modifier-border);
   border-radius: var(--radius-m);
-  padding: 8px 12px;
+  /* The properties collapse chevron is positioned 22px to the left of the
+     heading; the extra left padding keeps it inside our bordered card. */
+  padding: 8px 12px 8px 30px;
 }
 
 .metadata-property-key {
