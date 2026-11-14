@@ -138,8 +138,8 @@ body.theme-light {
   --color-pink: #c07cd6;
 
   /* ---- chrome --------------------------------------------------------- */
-  --titlebar-background: #1c3634;
-  --titlebar-background-focused: #1c3634;
+  --titlebar-background: #182f2e;
+  --titlebar-background-focused: #182f2e;
   --titlebar-text-color: #99a1af;
   --titlebar-text-color-focused: #CCCECE;
   --titlebar-border-color: #0A373B;
@@ -160,7 +160,7 @@ body.theme-light {
   --tab-text-color-focused-highlighted: #60cf92;
   --tab-outline-color: #3c755a;
   --tab-outline-width: 1px;
-  --tab-divider-color: #346d57;
+  --tab-divider-color: #3c7e61;
   --tab-inner-background-hover: rgba(96, 207, 146, 0.14);
   --tab-radius: 4px 4px 0 0;
   --tab-radius-active: 4px 4px 0 0;
@@ -376,9 +376,14 @@ body {
   background-color: var(--background-modifier-hover);
 }
 
-.titlebar,
-.titlebar-inner {
+.titlebar {
   background-color: var(--titlebar-background);
+  color: var(--titlebar-text-color);
+}
+
+/* Do NOT paint .titlebar-inner: in frameless mode it is a transparent overlay
+   above the tab bar and an opaque background hides every tab. */
+.titlebar-inner {
   color: var(--titlebar-text-color);
 }
 
@@ -406,6 +411,14 @@ body {
 
 .workspace-tab-header-container .workspace-tab-header:not(.is-active) .workspace-tab-header-inner-title {
   color: var(--tab-text-color);
+}
+
+/* Make the 1px separators Obsidian draws between tab titles easier to see. */
+.workspace .mod-root .workspace-tab-header-inner:after {
+  width: 2px;
+  height: 58%;
+  border-radius: 1px;
+  background-color: var(--tab-divider-color);
 }
 
 .workspace-tab-header:hover {
@@ -1537,7 +1550,7 @@ hr { border: none; border-top: 1px solid var(--hr-color); margin: 22px 0; }
       </div>
       <div class="status">
         <span>⎇ main · 3 changes</span>
-        <span>Gradianto Nature Green v0.1.1 · Reading view</span>
+        <span>Gradianto Nature Green v0.1.2 · Reading view</span>
       </div>
     </main>
   </div>

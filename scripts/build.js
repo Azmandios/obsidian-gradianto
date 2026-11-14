@@ -17,7 +17,7 @@ const THEME_JSON = "Gradianto_Nature_Green_new.theme.json";
 const SCHEME = "Gradianto_Nature_Green_new.xml";
 const LEGACY_SCHEME = "Gradianto_Nature_Green.xml";
 const NAME = "Gradianto Nature Green";
-const VERSION = "0.1.1";
+const VERSION = "0.1.2";
 
 /* ------------------------------------------------------------------ */
 /* color helpers                                                       */
@@ -406,8 +406,8 @@ body.theme-light {
   --color-pink: #c07cd6;
 
   /* ---- chrome --------------------------------------------------------- */
-  --titlebar-background: ${p.tabStrip};
-  --titlebar-background-focused: ${p.tabStrip};
+  --titlebar-background: ${darken(p.tabsBg, 0.2)};
+  --titlebar-background-focused: ${darken(p.tabsBg, 0.2)};
   --titlebar-text-color: ${p.muted};
   --titlebar-text-color-focused: ${p.uiFg};
   --titlebar-border-color: ${p.border};
@@ -428,7 +428,7 @@ body.theme-light {
   --tab-text-color-focused-highlighted: ${p.accent};
   --tab-outline-color: ${mix(p.borderSoft, p.accent, 0.22)};
   --tab-outline-width: 1px;
-  --tab-divider-color: ${mix(p.tabsBg, p.accent, 0.34)};
+  --tab-divider-color: ${mix(p.tabsBg, p.accent, 0.45)};
   --tab-inner-background-hover: ${rgba(p.accent, 0.14)};
   --tab-radius: 4px 4px 0 0;
   --tab-radius-active: 4px 4px 0 0;
@@ -644,9 +644,14 @@ body {
   background-color: var(--background-modifier-hover);
 }
 
-.titlebar,
-.titlebar-inner {
+.titlebar {
   background-color: var(--titlebar-background);
+  color: var(--titlebar-text-color);
+}
+
+/* Do NOT paint .titlebar-inner: in frameless mode it is a transparent overlay
+   above the tab bar and an opaque background hides every tab. */
+.titlebar-inner {
   color: var(--titlebar-text-color);
 }
 
@@ -674,6 +679,14 @@ body {
 
 .workspace-tab-header-container .workspace-tab-header:not(.is-active) .workspace-tab-header-inner-title {
   color: var(--tab-text-color);
+}
+
+/* Make the 1px separators Obsidian draws between tab titles easier to see. */
+.workspace .mod-root .workspace-tab-header-inner:after {
+  width: 2px;
+  height: 58%;
+  border-radius: 1px;
+  background-color: var(--tab-divider-color);
 }
 
 .workspace-tab-header:hover {
